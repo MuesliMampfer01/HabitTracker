@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  habittracker:
+    build: .
+    container_name: habittracker
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - habit_data:/app/data
+
+volumes:
+  habit_data:
