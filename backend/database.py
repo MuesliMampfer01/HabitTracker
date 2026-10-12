@@ -1,26 +1,28 @@
-import sqlite3
-import os
+#DB-Verbindung und Session-Config
+from pathlib import Path
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_DIR = os.path.join(BASE_DIR, 'data')
-DB_PATH = os.path.join(DB_DIR, 'habits.db')
+#Bestimmen vom aktuellen Pfad zum Ordner und Unterordner Data
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
 
-def get_db():
-    os.makedirs(DB_DIR, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+#data Ordner automatisch erstellen, wenn nicht existiert
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-def init_db():
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS habits (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            days TEXT NOT NULL,
-            notify BOOLEAN DEFAULT 1
-        )
-    ''')
-    conn.commit()
-    conn.close()
+#Pfad zur DB Datei im Ordner Data
+DB_PATH = DATA_DIR / "users.db"
+DATABASE_URL = f"sqlite:///{DB_PATH}"
+
+#Tunnel zur Datenbank-Datei
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) #Erzeugung der Session für jeden Aufruf
+Base = declarative_base() #Erstellt Mutterklasse für alle Tabellen, alle Tabellen erben später von Base, damit Alchemy weiß, dass sie zusammengehören
+
+def get_db(): #Generatorfunktion, die eine Sitzung öffnet und sie über yield an die Funktion weitergibt und später wieder schließt
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
