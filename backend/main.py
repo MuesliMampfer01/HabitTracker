@@ -111,7 +111,7 @@ def get_task(task: models.Task = Depends(check_for_task)):
     return task
 
 
-# Task aktualisieren 
+# Task aktualisieren
 @app.put("/tasks/{task_id}", response_model=schemas.TaskResponse)
 def update_task(
     task_data: schemas.TaskCreate,
