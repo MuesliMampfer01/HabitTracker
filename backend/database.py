@@ -17,11 +17,11 @@ DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 #Tunnel zur Datenbank-Datei
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) #Erzeugung der Session für jeden Aufruf
+SESSION_LOCAL= sessionmaker(autocommit=False, autoflush=False, bind=engine) #Erzeugung der Session für jeden Aufruf
 Base = declarative_base() #Erstellt Mutterklasse für alle Tabellen, alle Tabellen erben später von Base, damit Alchemy weiß, dass sie zusammengehören
 
 def get_db(): #Generatorfunktion, die eine Sitzung öffnet und sie über yield an die Funktion weitergibt und später wieder schließt
-    db = SessionLocal()
+    db = SESSION_LOCAL()
     try:
         yield db
     finally:

@@ -1,7 +1,8 @@
 #Prüfen und Filtern von Daten, die über API reinkommen und an Client Rausgehen, also ob Zahlen Zahlen und Strings Strings sind etc
-from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Optional
+from pydantic import BaseModel, ConfigDict
+
 
 class UserCreate(BaseModel):
     name: str
