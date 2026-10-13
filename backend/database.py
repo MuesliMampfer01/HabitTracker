@@ -12,7 +12,7 @@ DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 #Pfad zur DB Datei im Ordner Data
-DB_PATH = DATA_DIR / "users.db"
+DB_PATH = DATA_DIR / "app.db"
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 #Tunnel zur Datenbank-Datei
