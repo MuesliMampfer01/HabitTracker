@@ -4,10 +4,13 @@ from typing import Optional
 from pydantic import BaseModel, ConfigDict
 
 
+#----    User Schemas    ----
+
 class UserCreate(BaseModel):
     name: str
     email: str
     role: str
+    password: str
 
 class UserResponse(BaseModel):
     id: int
@@ -17,6 +20,13 @@ class UserResponse(BaseModel):
 
     #dafür da, dass Pydantic Daten aus Alchemy herauslesen kann, Alchemy gibt eig Objekte zurück, Pydantic erwartet aber eig Dictionaries
     model_config = ConfigDict(from_attributes=True)
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+
+#----    Task Schemas   ----
 
 class TaskCreate(BaseModel):
     title: str
@@ -32,3 +42,13 @@ class TaskResponse(BaseModel):
     user_id: int
 
     model_config = ConfigDict(from_attributes=True)
+
+
+#----    Token Schemas    ----
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+class TokenData(BaseModel):
+    user_id: Optional[int] = None

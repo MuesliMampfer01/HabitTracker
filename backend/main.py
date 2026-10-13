@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 import models
 import schemas
+import security
 from database import engine, get_db
 
 # Erstellt Tabellen, falls noch nicht existieren
@@ -53,10 +54,17 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if db.query(models.User).filter(models.User.email == user.email).first():
         raise HTTPException(status_code=400, detail="User already exists")
 
-    new_user = models.User(**user.model_dump())
+    hashed_pwd = security.hash_password(user.password)
+
+    user_data = user.model_dump()
+    user_data.pop("password")
+
+    new_user = models.User(**user_data, password=hashed_pwd)
+
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
     return new_user
 
 
