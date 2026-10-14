@@ -16,13 +16,13 @@ engine = create_engine(
     connect_args={"check_same_thread": False},
     poolclass=StaticPool,
 )
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TESTING_SESSION_LOCAL = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Tabellen werden bei jedem Test neu angelegt und wieder gelöscht
 @pytest.fixture(name="session")
 def session_fixture():
     Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
+    db = TESTING_SESSION_LOCAL()
     try:
         yield db
     finally:
