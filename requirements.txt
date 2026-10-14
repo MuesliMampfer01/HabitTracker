@@ -6,3 +6,5 @@ bcrypt
 pyjwt
 pydantic-settings
 python-multipart
+pytest
+httpx
