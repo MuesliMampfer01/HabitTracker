@@ -33,8 +33,8 @@ def get_current_user(
         if user_id_str is None:
             raise credentials_exception
         user_id = int(user_id_str)
-    except (InvalidTokenError, ValueError):
-        raise credentials_exception
+    except (InvalidTokenError, ValueError) as exc:
+        raise credentials_exception from exc
 
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if user is None:
@@ -44,5 +44,3 @@ def get_current_user(
 
 
 CurrentUserDep = Annotated[models.User, Depends(get_current_user)]
-
-
