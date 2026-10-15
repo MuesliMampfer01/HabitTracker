@@ -42,8 +42,9 @@ def login(
             headers={"WWW-Authenticate": "Bearer"}
         )
 
+    user_data = schemas.UserResponse.model_validate(user);
     access_token = security.create_access_token(data={"sub": str(user.id)})
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "user": user_data}
 
 
 # ----    Users    ----
