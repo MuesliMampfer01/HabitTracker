@@ -2,3 +2,9 @@ fastapi
 uvicorn
 pydantic
 sqlalchemy
+bcrypt
+pyjwt
+pydantic-settings
+python-multipart
+pytest
+httpx

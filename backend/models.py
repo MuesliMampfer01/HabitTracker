@@ -10,6 +10,7 @@ class User(Base): #erben von Base -> Klasse wird als Tabelle bei ALchemy hinterl
     name = Column(String, nullable=False)
     email = Column(String, nullable=False, unique=True)
     role = Column(String, nullable=False)
+    password = Column(String, nullable=False)
 
 class Task(Base):
     __tablename__ = "tasks"
