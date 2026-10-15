@@ -3,7 +3,7 @@ def test_user_reg_and_login(client):
     # Registrierung testen
     reg_resp = client.post(
         "/users/",
-        json={"email": "pytest@example.com", "password": "password123"}
+        json={"name": "Pytest User", "email": "pytest@example.com","role": "user", "password": "password123"}
     )
     assert reg_resp.status_code == 200
     user_data = reg_resp.json()
@@ -43,11 +43,10 @@ def test_login_failed_with_wrong_password(client):
         data={"username": "pytest2@example.com", "password": "wrongpassword"}
     )
     assert response.status_code == 401
-    assert response.json()["detail"] == "E-Mail oder Passwort falsch"
+    assert response.json()["detail"] == "E-Mail or Password is wrong"
 
 
 def test_protected_route_without_token(client):
-    """Testet, dass unauthentifizierte Anfragen blockiert werden."""
     # Keine Header übergeben
     response = client.get("/users/me")
     assert response.status_code == 401
