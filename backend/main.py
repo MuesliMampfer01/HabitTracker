@@ -1,6 +1,7 @@
 from typing import Annotated, List
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 
 import models
 import schemas
@@ -13,6 +14,13 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="HabitTracker")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5500"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
