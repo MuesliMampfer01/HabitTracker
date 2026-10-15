@@ -17,7 +17,7 @@ def test_user_reg_and_login(client):
     )
     assert login_resp.status_code == 200
     token_data = login_resp.json()
-    assert "acess_token" in token_data
+    assert "access_token" in token_data
     assert token_data["token_type"] == "bearer"
 
     # Route mit Bearer aufrufen
@@ -54,6 +54,6 @@ def test_protected_route_without_token(client):
     # Ungültiges Token übergeben
     bad_token_response = client.get(
         "/users/me",
-        headers={"Authorization": "Bearer ungueltigestoken123"}
+        headers={"Authorization": "Bearer invalidtoken123"}
     )
     assert bad_token_response.status_code == 401
