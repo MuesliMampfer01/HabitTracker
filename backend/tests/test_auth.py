@@ -2,8 +2,8 @@ def test_user_reg_and_login(client):
 
     # Registrierung testen
     reg_resp = client.post(
-        "/users/",
-        json={"name": "Pytest User", "email": "pytest@example.com","role": "user", "password": "password123"}
+        "/register",
+        json={"name": "Pytest User", "email": "pytest@example.com", "password": "password123"}
     )
     assert reg_resp.status_code == 200
     user_data = reg_resp.json()

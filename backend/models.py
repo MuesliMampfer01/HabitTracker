@@ -9,7 +9,6 @@ class User(Base): #erben von Base -> Klasse wird als Tabelle bei ALchemy hinterl
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     email = Column(String, nullable=False, unique=True)
-    role = Column(String, nullable=False)
     password = Column(String, nullable=False)
 
 class Task(Base):

@@ -1,6 +1,7 @@
 from typing import Annotated, List
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 
 import models
 import schemas
@@ -13,6 +14,13 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="HabitTracker")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5500"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
@@ -34,15 +42,16 @@ def login(
             headers={"WWW-Authenticate": "Bearer"}
         )
 
+    user_data = schemas.UserResponse.model_validate(user)
     access_token = security.create_access_token(data={"sub": str(user.id)})
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "user": user_data}
 
 
 # ----    Users    ----
 
 
 # User registrieren
-@app.post("/users/", response_model=schemas.UserResponse)
+@app.post("/register", response_model=schemas.UserResponse)
 def create_user(user: schemas.UserCreate, db: DbDep):
     if db.query(models.User).filter(models.User.email == user.email).first():
         raise HTTPException(status_code=400, detail="User already exists")
