@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { RegisterPage } from './pages/RegisterPage';
 
 // Vorübergehende einfache Dashboard-Komponente zum Testen
 const DashboardPage = () => {
@@ -20,6 +21,8 @@ function App() {
       <Routes>
         {/* 1. Öffentliche Route */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
 
         {/* 2. Geschützte Routen (durch ProtectedRoute abgesichert) */}
         <Route element={<ProtectedRoute />}>
