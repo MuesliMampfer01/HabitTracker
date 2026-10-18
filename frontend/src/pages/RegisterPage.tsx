@@ -20,7 +20,7 @@ export const RegisterPage = () => {
         setError(null);
 
         if (password !== confirmPassword) {
-            setError('Passwords dont match');
+            setError('Passwörter stimmen nicht überein.');
             return;
         }
 
@@ -43,7 +43,7 @@ export const RegisterPage = () => {
             } else if (Array.isArray(detail)) {
                 setError(detail.map((e: any) => e.msg).join(', '));
             } else {
-                setError('Registry failed. Please check Inputs')
+                setError('Registrierung fehlgeschlagen. Bitte Eingaben prüfen.')
             }
         }finally {
             setIsSubmitting(false);
@@ -51,78 +51,101 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
-            <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-            <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">Konto erstellen</h2>
+  <div 
+    className="min-h-screen w-full flex items-center justify-center p-4 text-slate-100"
+    style={{
+      background: 'radial-gradient(ellipse at top, #1e293b 0%, #0f172a 40%, #080a0f 100%)'
+    }}
+  >
+    {/* Kachel */}
+    <div className="w-full max-w-md rounded-3xl bg-gray-50/20 p-8 shadow-2xl backdrop-blur-xl text-slate-100">
+      
+      {/* Header */}
+      <div className="mb-6 text-center">
+        <h2 className="mt-3 text-3xl font-mono uppercase tracking-tight text-white">
+          Registrieren
+        </h2>
+      </div>
 
-            {/* Fehleranzeige */}
-            {error && (
-                <div className="mb-4 rounded bg-red-100 p-3 text-sm text-red-700">
-                {error}
-                </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
-                />
-                </div>
-
-                <div>
-                <label className="block text-sm font-medium text-gray-700">E-Mail</label>
-                <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
-                />
-                </div>
-
-                <div>
-                <label className="block text-sm font-medium text-gray-700">Passwort</label>
-                <input
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
-                />
-                </div>
-
-                <div>
-                <label className="block text-sm font-medium text-gray-700">Passwort wiederholen</label>
-                <input
-                    type="password"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="mt-1 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
-                />
-                </div>
-
-                <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full rounded-md bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:bg-blue-300 cursor-pointer"
-                >
-                {isSubmitting ? 'Registriere...' : 'Registrieren'}
-                </button>
-            </form>
-
-            <p className="mt-4 text-center text-sm text-gray-600">
-                Bereits ein Konto?{' '}
-                <Link to="/login" className="text-blue-600 hover:underline">
-                Hier anmelden
-                </Link>
-            </p>
-            </div>
+      {/* Error */}
+      {error && (
+        <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs font-mono text-red-400 text-center">
+          {error}
         </div>
-    );
+      )}
+
+      {/* Formular */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-800/40 p-3 text-sm font-mono text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+            E-Mail
+          </label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-800/40 p-3 text-sm font-mono text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+            Passwort
+          </label>
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-800/40 p-3 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+            Passwort wiederholen
+          </label>
+          <input
+            type="password"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full rounded-lg border border-slate-700/70 bg-slate-800/40 p-3 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all"
+          />
+        </div>
+
+        {/* Reg-Button */}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full rounded-lg bg-white py-3 mt-2 text-sm font-mono uppercase tracking-wider text-slate-900 transition-all hover:bg-slate-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-lg"
+        >
+          {isSubmitting ? 'Registriere...' : 'Registrieren'}
+        </button>
+      </form>
+
+      {/* Footer Link */}
+      <p className="mt-6 text-center text-xs font-mono text-slate-400">
+        Bereits ein Konto?{' '}
+        <Link to="/login" className="text-white hover:text-slate-300 font-medium transition-colors">
+          Hier anmelden
+        </Link>
+      </p>
+    </div>
+  </div>
+);
 }
