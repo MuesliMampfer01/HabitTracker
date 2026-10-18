@@ -21,19 +21,19 @@ export const LoginPage = () => {
         setIsSubmitting(true);
 
         try {
-            // 1. Daten als Form-Data aufbereiten (OAuth2 Standard)
+            // Daten als Form-Data aufbereiten OAuth
             const formData = new URLSearchParams();
-            formData.append('username', email); // FastAPI erwartet hier 'username'
+            formData.append('username', email); 
             formData.append('password', password);
 
-            // 2. An FastAPI senden
+            // An FastAPI senden
             const response = await api.post('/login', formData, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             });
 
-            // 3. Token & User auswerten
+            // Token & User auswerten
             const { access_token, user } = response.data;
 
             login(access_token, user);
@@ -77,6 +77,7 @@ export const LoginPage = () => {
             </div>
           )}
 
+          {/* Anmeldelogik */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
@@ -91,6 +92,7 @@ export const LoginPage = () => {
               />
             </div>
 
+            {/* Passwortfeld */}
             <div>
               <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
                   Passwort
@@ -104,6 +106,7 @@ export const LoginPage = () => {
               />
             </div>
 
+            {/* Anmelde Knopf */}
             <button
               type="submit"
               disabled={isSubmitting}
