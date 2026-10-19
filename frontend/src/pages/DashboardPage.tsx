@@ -1,5 +1,6 @@
 import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
+import { HabitCard } from "../components/HabitCard";
 
 //Hilfsfunktion für Tageszeit
 const getGreeting = () => {
@@ -30,7 +31,29 @@ export const DashboardPage = () => {
                         Heute hast du schon <span className="text-emerald-400 font-bold">4 von 6</span> Gewohnheiten erledigt.
                     </p>
                 </section>
-
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+                <HabitCard 
+                    title="3L Wasser trinken" 
+                    category="Health" 
+                    streak={5} 
+                    isCompleted={true} 
+                    onToggle={() => {}} 
+                />
+                <HabitCard 
+                    title="30 Min. Lesen" 
+                    category="Mind" 
+                    streak={3} 
+                    isCompleted={false} 
+                    onToggle={() => {}} 
+                />
+                <HabitCard 
+                    title="Workout" 
+                    category="Fitness" 
+                    streak={12} 
+                    isCompleted={false} 
+                    onToggle={() => {}} 
+                />
             </div>
         </div>
     );
