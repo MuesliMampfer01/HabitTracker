@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
+import axios from "axios";
 
 export const LoginPage = () => {
     // Zustände
@@ -39,19 +40,23 @@ export const LoginPage = () => {
             login(access_token, user);
             navigate('/dashboard');
 
-        } catch (err: any) {
-            const detail = err.response?.data?.detail;
+        } catch (err: unknown) {
+          if (axios.isAxiosError(err)) {
+              const detail = err.response?.data?.detail;
 
-            if (typeof detail === 'string') {
-                setError(detail);
-            } else if (Array.isArray(detail)) {
-                setError(detail.map((e: any) => e.msg).join(', '));
-            } else {
-                setError('Anmeldung fehlgeschlagen. Bitte Zugangsdaten prüfen.');
-            }
-        } finally {
-            setIsSubmitting(false);
-        }
+              if (typeof detail === 'string') {
+                  setError(detail);
+              } else if (Array.isArray(detail)) {
+                  setError(detail.map((e: { msg: string }) => e.msg).join(', '));
+              } else {
+                  setError('Anmeldung fehlgeschlagen. Bitte Zugangsdaten prüfen.');
+              }
+          } else {
+              setError('Ein unerwarteter Fehler ist aufgetreten.');
+          }
+      } finally {
+          setIsSubmitting(false);
+      }
     };
 
     return (

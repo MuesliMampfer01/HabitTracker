@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
+import axios from "axios";
 
 export const RegisterPage = () => {
     // Zustände
@@ -33,15 +34,19 @@ export const RegisterPage = () => {
             });
 
             navigate('/login');
-        } catch (err: any) {
-            const detail = err.response?.data?.detail;
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                const detail = err.response?.data?.detail;
 
-            if (typeof detail === 'string') {
-                setError(detail);
-            } else if (Array.isArray(detail)) {
-                setError(detail.map((e: any) => e.msg).join(', '));
+                if (typeof detail === 'string') {
+                    setError(detail);
+                } else if (Array.isArray(detail)) {
+                    setError(detail.map((e: { msg: string }) => e.msg).join(', '));
+                } else {
+                    setError('Anmeldung fehlgeschlagen. Bitte Zugangsdaten prüfen.');
+                }
             } else {
-                setError('Registrierung fehlgeschlagen. Bitte Eingaben prüfen.');
+                setError('Ein unerwarteter Fehler ist aufgetreten.');
             }
         } finally {
             setIsSubmitting(false);

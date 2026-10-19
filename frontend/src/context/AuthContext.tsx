@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // zentrale Authentifizierung im Frontend, jede Seite kann hierauf zugreifen 
 import { createContext, useState, useEffect, useContext, type ReactNode } from 'react'
 import api from '../api/axios';
