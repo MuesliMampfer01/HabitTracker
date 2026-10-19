@@ -23,14 +23,14 @@ export const DashboardPage = () => {
                 <Navbar />
                 {/* Hier Begrüßung */}
                 <section className="space-y-2">
-                    <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
-                        {getGreeting()}, {user?.name || 'Muesli'}!
+                    <h1 className="text-3xl md:text-5xl font-mono tracking-tight text-white">
+                        {getGreeting()}, {user?.name || ''}
                     </h1>
                     <p className="text-sm text-slate-400 font-mono">
                         Heute hast du schon <span className="text-emerald-400 font-bold">4 von 6</span> Gewohnheiten erledigt.
                     </p>
                 </section>
-                
+
             </div>
         </div>
     );
