@@ -11,7 +11,7 @@ export const LoginPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false); 
 
     // Laden von Context und den Navigation Hook
-    const { login } = useAuth(); // nimmt sich nur das logincontext aus dem Provider 
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     // Absendelogik
@@ -56,53 +56,64 @@ export const LoginPage = () => {
 
     return (
       <div 
-        className="flex min-h-screen w-full items-center justify-center text-slate-100 p-4"
+        className="flex min-h-screen w-full items-center justify-center p-4 font-mono text-slate-100"
         style={{
           background: 'radial-gradient(ellipse at top, #1e293b 0%, #0f172a 40%, #080a0f 100%)'
         }}
       >
-        <div className="w-full max-w-md rounded-3xl bg-gray-50/20 p-8 shadow-2xl backdrop-blur-xl text-slate-100">
+        {/* Terminal Card */}
+        <div className="w-full max-w-md rounded-2xl bg-slate-900/80 border border-slate-800 p-8 shadow-2xl backdrop-blur-xl">
 
-          {/* Header */}
-            <div className="mb-6 text-center">
-                <h2 className="mt-3 text-3xl font-mono uppercase tracking-tight text-white">
-                Anmelden
-                </h2>
+          {/* Logo & Header */}
+          <div className="mb-8 flex flex-col items-center gap-3 text-center">
+            <div className="flex items-center gap-2 text-base font-bold tracking-wider">
+              <span className="animate-pulse text-emerald-400">&gt;_</span>
+              <span className="bg-emerald-500 text-black px-2 py-0.5 font-black uppercase">
+                HABITTRACKER
+              </span>
+              <span className="text-xs text-emerald-500/50">[v1.0]</span>
             </div>
+            
+            <p className="text-[11px] text-slate-500 tracking-widest uppercase mt-1">
+              &gt; SYSTEM_LOGIN
+            </p>
+          </div>
 
-          {/* Error */}
+          {/* Terminal Error Box */}
           {error && (
-            <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs font-mono text-red-400 text-center">
-              {error}
+            <div className="mb-6 rounded-xl border border-red-500/40 bg-red-950/30 p-3 text-xs text-red-400 text-center">
+              ERROR: {error}
             </div>
           )}
 
           {/* Anmeldelogik */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
-                  E-Mail
+              <label className="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">
+                E-Mail
               </label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-slate-700/70 bg-slate-800/40 p-3 text-sm font-mono text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all"
+                placeholder="user@example.com"
+                className="w-full rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-sm text-emerald-400 placeholder-slate-600 focus:border-emerald-500/80 focus:outline-none focus:ring-1 focus:ring-emerald-500/80 transition-all"
               />
             </div>
 
             {/* Passwortfeld */}
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
-                  Passwort
+              <label className="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">
+                Passwort
               </label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-slate-700/70 bg-slate-800/40 p-3 text-sm text-white placeholder-slate-500 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all"
+                placeholder="••••••••"
+                className="w-full rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-sm text-emerald-400 placeholder-slate-600 focus:border-emerald-500/80 focus:outline-none focus:ring-1 focus:ring-emerald-500/80 transition-all"
               />
             </div>
 
@@ -110,21 +121,20 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full rounded-lg bg-white py-3 mt-2 text-sm font-mono uppercase tracking-wider text-slate-900 transition-all hover:bg-slate-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-lg"
+              className="w-full rounded-xl bg-emerald-500 py-3 mt-2 text-xs font-bold uppercase tracking-wider text-slate-950 transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-lg shadow-emerald-500/10"
             >
-              {isSubmitting ? 'Anmelden...' : 'Anmelden'}
+              {isSubmitting ? 'AUTHENTIFIZIERE...' : 'ANMELDEN'}
             </button>
           </form>
 
           {/* Footer Link */}
-            <p className="mt-6 text-center text-xs font-mono text-slate-400">
-              Noch kein Konto?{' '}
-              <Link to="/register" className="text-white hover:text-slate-300 font-medium transition-colors">
-                Hier registrieren
-              </Link>
-            </p>
-          </div>
+          <p className="mt-6 text-center text-xs text-slate-400">
+            Noch kein Konto?{' '}
+            <Link to="/register" className="text-emerald-400 hover:text-emerald-300 font-medium underline transition-colors">
+              Hier registrieren
+            </Link>
+          </p>
         </div>
+      </div>
     );
 };
-

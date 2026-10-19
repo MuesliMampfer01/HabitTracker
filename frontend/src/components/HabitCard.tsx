@@ -26,15 +26,15 @@ export const HabitCard = ({
                 <span className="rounded-lg bg-slate-800/80 px-2.5 py-0.5 text-[10px] font-mono- text-slate-400 border border-slate-700/50 uppercase">
                 {category}
                 </span>
-                <span className="text-emerald-400 font-bold tracking-wider text-[11px]">
-                    STREAK: {streak}d 🔥
+                <span className="text-emerald-400 font-mono tracking-wider text-[11px]">
+                    STREAK: {streak}d 
                 </span>
             </div>
 
             {/* Hauptinhalt */}
             <div className="my-2">
                 <p className="text-[10px] text-slate-500 uppercase tracking-widest">
-                    &gt; ZIEL_HABIT
+                    &gt; ZIEL
                 </p>
                 <h3 className="text-lg font-mono uppercase tracking-tight text-white mt-1 line-clamp-2">
                     {title}

@@ -14,13 +14,13 @@ export const DashboardPage = () => {
     const { user } = useAuth();
 
     return (
-        <div
-            className="min-h-screen w-full text-slate-100 p-6 md:p-10"
+        <div 
+            className="min-h-screen w-full text-slate-100 px-6 pt-2 pb-10 md:px-10 md:pt-6"
             style={{
                 background: 'radial-gradient(ellipse at top, #1e293b 0%, #0f172a 40%, #080a0f 100%)'
             }}
         >
-            <div className="max-w-7xl mx-auto space-y-8">
+            <div className="space-y-8">
                 <Navbar />
                 {/* Hier Begrüßung */}
                 <section className="space-y-2">
