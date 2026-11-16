@@ -120,3 +120,24 @@ def delete_task(task_id: int, user: CurrentUserDep, db: DbDep):
     db.delete(task)
     db.commit()
     return {"message": "Task deleted"}
+
+@app.patch("/tasks/{task_id}")
+def update_task(task_id: int, task_update:schemas.TaskUpdate, user: CurrentUserDep, db:DbDep):
+    task = db.query(models.Task).filter(
+        models.Task.id == task_id,
+        models.Task.user_id == user.id
+    ).first()
+
+    if not task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Task not found.",
+        )
+
+    update_data = task_update.model_dump(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(task, key, value)
+
+    db.commit()
+    db.refresh(task)
+    return task

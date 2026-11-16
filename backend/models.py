@@ -1,5 +1,5 @@
 #Beschreibung der richtigen Struktur der Tabellen
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import JSON, Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from database import Base
 
@@ -19,4 +19,6 @@ class Task(Base):
     description = Column(String, nullable=True)
     is_completed = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now()) # pylint: disable=not-callable
+    is_recurring = Column(Boolean, default=False, nullable=False)
+    scheduled_days = Column(JSON, default=list, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
