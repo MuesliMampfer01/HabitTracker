@@ -34,7 +34,7 @@ export const HabitCard = ({
             {/* Hauptinhalt */}
             <div className="my-2">
                 <p className="text-[10px] text-slate-500 uppercase tracking-widest">
-                    &gt; ZIEL
+                    &gt; GOAL
                 </p>
                 <h3 className="text-lg font-mono uppercase tracking-tight text-white mt-1 line-clamp-2">
                     {title}
